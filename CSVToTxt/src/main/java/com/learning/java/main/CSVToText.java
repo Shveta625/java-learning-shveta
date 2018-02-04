@@ -8,18 +8,15 @@ public class CSVToText {
 
 	public static void main(String[] args) {
 
-		long startTime = System.nanoTime();
-		String csvFile = new File(".").getAbsolutePath() + "/src/main/resources/Multithreading_Task1_Books.csv";
-		try {
-			Thread thread = new Thread(new ReaderThread(csvFile));
-			thread.start();
-			thread.join();
+		String csvFile = "Multithreading_Task1_Books.csv";
+		createDirectory();
+		Thread thread = new Thread(new ReaderThread(csvFile));
+		thread.start();
+	}
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.out.println("Time taken : " + (System.nanoTime() - startTime) + "ns");
-
+	private static void createDirectory() {
+		File file = new File("TestDirectory");
+		file.mkdir();
 	}
 
 }
