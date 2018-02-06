@@ -4,6 +4,11 @@ import java.io.File;
 
 import com.learning.java.threads.ReaderThread;
 
+/**
+ * Converts CSV to .txt file
+ * @author shvetap
+ *
+ */
 public class CSVToText {
 
 	public static void main(String[] args) {
@@ -14,6 +19,9 @@ public class CSVToText {
 		thread.start();
 	}
 
+	/**
+	 * Creates directory on current path
+	 */
 	private static void createDirectory() {
 		File file = new File("TestDirectory");
 		file.mkdir();

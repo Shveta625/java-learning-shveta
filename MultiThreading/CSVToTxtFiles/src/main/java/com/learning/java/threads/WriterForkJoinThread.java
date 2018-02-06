@@ -13,6 +13,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Writer thread
+ * 
+ * @author shvetap
+ *
+ */
 public class WriterForkJoinThread extends RecursiveAction {
 
 	AtomicInteger atomicInteger = new AtomicInteger();
@@ -36,6 +42,13 @@ public class WriterForkJoinThread extends RecursiveAction {
 
 	}
 
+	/**
+	 * Creates fork writer threads
+	 * 
+	 * @param lines
+	 *            list of lines to b processed
+	 * @return list of writer fork threads created
+	 */
 	private List<WriterForkJoinThread> createSubtasks(List<String> lines) {
 		List<WriterForkJoinThread> subTasks = new ArrayList<>();
 		Stream<String> partOne = lines.stream().limit(THRESHOLD);
@@ -46,12 +59,18 @@ public class WriterForkJoinThread extends RecursiveAction {
 		return subTasks;
 	}
 
+	/**
+	 * Writes file on local storage
+	 * 
+	 * @param lines
+	 *            lines to be printed
+	 */
 	private void processing(List<String> lines) {
 		try {
 			Files.write(Paths.get("TestDirectory/TestingCSV" + atomicInteger.getAndIncrement() + ".txt"), lines,
 					Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.console().writer().println(String.valueOf(e));
 		}
 	}
 

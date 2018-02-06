@@ -8,6 +8,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
+/**
+ * Reader Thread
+ * 
+ * @author shvetap
+ *
+ */
 public class ReaderThread implements Runnable {
 
 	private String fileToRead;
@@ -38,7 +44,7 @@ public class ReaderThread implements Runnable {
 				}
 			}
 		} catch (IOException | URISyntaxException e) {
-			e.printStackTrace();
+			System.console().writer().println(String.valueOf(e));
 		}
 	}
 

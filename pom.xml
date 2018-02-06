@@ -12,11 +12,12 @@
 	</properties>
 
 	<modules>
-		<module>RefactoringTask</module>
+		
 		
 		
 		<module>MultiThreading</module>
 		<module>Generics</module>
+		<module>RefactorTask</module>
 	</modules>
 
 	<dependencies>
