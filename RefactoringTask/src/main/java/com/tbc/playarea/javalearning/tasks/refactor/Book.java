@@ -6,9 +6,7 @@ import java.util.Date;
 /**
  * Simple Book class representing Book data and methods.
  * 
- * @author chandrashekarv
- *
- */
+*/
 public abstract class Book implements Serializable {
 
 	private static final long serialVersionUID = -7348792584072115788L;

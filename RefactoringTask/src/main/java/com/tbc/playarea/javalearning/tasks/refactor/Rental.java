@@ -8,8 +8,6 @@ import java.io.Serializable;
 /**
  * Represent a customer renting a book.
  * 
- * @author chandrashekarv
- *
  */
 public class Rental implements Serializable {
 
