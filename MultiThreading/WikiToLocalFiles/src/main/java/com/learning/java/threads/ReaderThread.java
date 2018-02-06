@@ -46,7 +46,7 @@ public class ReaderThread implements Runnable {
 		Set<?> keys = jsonObject.keySet();
 		String result="";
 		for (Object object : keys) {
-			if (object.toString().equals("extract")) {
+			if ("extract".equals(object.toString())) {
 				return jsonObject.get(object).toString();
 			}
 			if(jsonObject.get(object) instanceof JSONObject) {
