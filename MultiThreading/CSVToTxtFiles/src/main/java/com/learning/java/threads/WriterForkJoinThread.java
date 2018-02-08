@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+import com.learning.java.util.PropertiesLoader;
+	
 /**
  * Writer thread
  * 
@@ -21,10 +24,12 @@ import java.util.stream.Stream;
  */
 public class WriterForkJoinThread extends RecursiveAction {
 
-	AtomicInteger atomicInteger = new AtomicInteger();
+	private static AtomicInteger atomicInteger = new AtomicInteger();
 	private static final long serialVersionUID = -7412617337563360202L;
 	static final int THRESHOLD = 10;
 	private List<String> lines;
+	transient PropertiesLoader properties=new PropertiesLoader();
+	transient Logger logger = Logger.getLogger(WriterForkJoinThread.class.getName());
 
 	public WriterForkJoinThread(List<String> lines) {
 		super();
@@ -37,7 +42,7 @@ public class WriterForkJoinThread extends RecursiveAction {
 		if (lines.size() > THRESHOLD) {
 			ForkJoinTask.invokeAll(createSubtasks(lines));
 		} else {
-			processing(lines);
+			writeToFile(lines);
 		}
 
 	}
@@ -51,10 +56,10 @@ public class WriterForkJoinThread extends RecursiveAction {
 	 */
 	private List<WriterForkJoinThread> createSubtasks(List<String> lines) {
 		List<WriterForkJoinThread> subTasks = new ArrayList<>();
-		Stream<String> partOne = lines.stream().limit(THRESHOLD);
-		Stream<String> partTwo = lines.stream().skip(THRESHOLD);
-		subTasks.add(new WriterForkJoinThread(partOne.collect(Collectors.toList())));
-		subTasks.add(new WriterForkJoinThread(partTwo.collect(Collectors.toList())));
+		List<String> listOne = lines.stream().limit(THRESHOLD).collect(Collectors.toList());
+		List<String> listTwo = lines.stream().skip(THRESHOLD).collect(Collectors.toList());
+		subTasks.add(new WriterForkJoinThread(listOne));
+		subTasks.add(new WriterForkJoinThread(listTwo));
 
 		return subTasks;
 	}
@@ -65,12 +70,12 @@ public class WriterForkJoinThread extends RecursiveAction {
 	 * @param lines
 	 *            lines to be printed
 	 */
-	private void processing(List<String> lines) {
-		try {
-			Files.write(Paths.get("TestDirectory/TestingCSV" + atomicInteger.getAndIncrement() + ".txt"), lines,
+	private void writeToFile(List<String> lines) {
+		try 	{
+			Files.write(Paths.get(properties.loadProperties().getProperty("OUTPUT_DIRECTORY")+"/TestingCSV" + atomicInteger.incrementAndGet() + ".txt"), lines,
 					Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 		} catch (IOException e) {
-			System.console().writer().println(String.valueOf(e));
+			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 		}
 	}
 

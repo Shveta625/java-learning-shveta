@@ -5,9 +5,10 @@ import java.util.Date;
 
 /**
  * Simple Book class representing Book data and methods.
+ * 
  * @author shvetap
  * 
-*/
+ */
 public abstract class Book implements Serializable {
 
 	private static final long serialVersionUID = -7348792584072115788L;
@@ -15,51 +16,15 @@ public abstract class Book implements Serializable {
 
 	private long id;
 	private String title;
-	private int bookCategory;
 
-	public Book(final String title, final int bookCategory, final Date releaseDate) {
+	public Book(final BookBuilder<?> bookBuilder) {
 		super();
-		this.title = title;
-		this.bookCategory = bookCategory;
-		this.releaseDate = releaseDate;
-	}
-
-	public Book(final String title, final int bookCategory) {
-		super();
-		this.title = title;
-		this.bookCategory = bookCategory;
-	}
-
-	public Date getReleaseDate() {
-		return releaseDate;
-	}
-
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+		this.title = bookBuilder.title;
+		this.releaseDate = bookBuilder.releaseDate;
 	}
 
 	public String getTitle() {
 		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public int getBookCategory() {
-		return bookCategory;
-	}
-
-	public void setBookCategory(int bookCategory) {
-		this.bookCategory = bookCategory;
 	}
 
 	/**
@@ -70,35 +35,7 @@ public abstract class Book implements Serializable {
 	 * @return rent price corresponding book and number of days it has been rented
 	 *         for
 	 */
-	public double fetchRentPrice(int daysRented) {
-		double amt = getBasePrice();
-		int thresholdDays = getThresholdDays();
-		if (daysRented > thresholdDays) {
-			amt += (daysRented - thresholdDays) * getMultiplyingFactor();
-		}
-		return amt;
-	}
-
-	/**
-	 * To get Base Rent price
-	 * 
-	 * @return base rent
-	 */
-	public abstract double getBasePrice();
-
-	/**
-	 * To get number of days for which rent is fixed
-	 * 
-	 * @return threshold days
-	 */
-	public abstract int getThresholdDays();
-
-	/**
-	 * Multiplying factor for increasing rent
-	 * 
-	 * @return multiplying factor
-	 */
-	public abstract double getMultiplyingFactor();
+	protected abstract double fetchRentPrice(int daysRented);
 
 	/**
 	 * To fetch rent price
@@ -107,6 +44,32 @@ public abstract class Book implements Serializable {
 	 *            Number of days for which book has been rented
 	 * @return Rental points
 	 */
-	public abstract int fetchRentalPoints(int daysRented);
+	protected abstract int fetchRentalPoints(int daysRented);
+
+	/**
+	 * Builder class for Book
+	 * 
+	 * @author shvetap
+	 *
+	 * @param <T>
+	 *            class extending Book
+	 */
+	public abstract static class BookBuilder<T extends Book> {
+		protected Date releaseDate;
+		protected String title;
+
+		public BookBuilder(String title) {
+			super();
+			this.title = title;
+		}
+
+		public BookBuilder<T> setReleaseDate(Date releaseDate) {
+			this.releaseDate = releaseDate;
+			return this;
+		}
+
+		public abstract T build();
+
+	}
 
 }

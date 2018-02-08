@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Reader Thread
@@ -17,7 +19,8 @@ import java.util.concurrent.ForkJoinPool;
 public class ReaderThread implements Runnable {
 
 	private String fileToRead;
-	static final int THRESHOLD = 10000;
+	static final int THRESHOLD = 100;
+	Logger logger = Logger.getLogger(WriterForkJoinThread.class.getName());
 
 	public ReaderThread(String fileToRead) {
 		super();
@@ -30,22 +33,23 @@ public class ReaderThread implements Runnable {
 			List<String> lines = Files.readAllLines(Paths.get(getClass().getResource("/" + fileToRead).toURI()),
 					StandardCharsets.UTF_8);
 			ForkJoinPool pool = new ForkJoinPool();
+			WriterForkJoinThread writerThread;
 			int listSize = lines.size();
 			if (listSize > THRESHOLD) {
 				for (int i = 0; i < listSize; i = i + THRESHOLD) {
 					if (i + THRESHOLD > listSize) {
-						WriterForkJoinThread writerThread = new WriterForkJoinThread(lines.subList(i, listSize));
-						pool.invoke(writerThread);
-
+						writerThread = new WriterForkJoinThread(lines.subList(i, listSize));
 					} else {
-						WriterForkJoinThread writerThread = new WriterForkJoinThread(lines.subList(i, i + THRESHOLD));
-						pool.invoke(writerThread);
+						writerThread = new WriterForkJoinThread(lines.subList(i, i + THRESHOLD));
 					}
+					pool.invoke(writerThread);
 				}
+			}else {
+				writerThread = new WriterForkJoinThread(lines.subList(0, listSize));
+				pool.invoke(writerThread);
 			}
 		} catch (IOException | URISyntaxException e) {
-			System.console().writer().println(String.valueOf(e));
+			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 		}
 	}
-
 }

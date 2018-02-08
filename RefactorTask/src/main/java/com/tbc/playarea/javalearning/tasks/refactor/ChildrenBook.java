@@ -1,38 +1,45 @@
 package com.tbc.playarea.javalearning.tasks.refactor;
 
-import java.util.Date;
-
 /**
  * Book of genre Children
+ * 
  * @author shvetap
  *
  */
-public class ChildrenBook extends Book{
+public class ChildrenBook extends Book {
 
 	private static final long serialVersionUID = 3755216325591454727L;
 
-	public ChildrenBook(String title, int bookCategory) {
-		super(title, bookCategory);
+	public ChildrenBook(ChildrenBookBuilder childrenBookBuilder) {
+		super(childrenBookBuilder);
+
 	}
-	
-	public ChildrenBook(final String title, final int bookCategory, final Date releaseDate) {
-		super(title, bookCategory, releaseDate);
-	}
-	
-	public int fetchRentalPoints(int daysRented) {
+
+	@Override
+	protected int fetchRentalPoints(int daysRented) {
 		return 1;
 	}
 
-	public double getBasePrice() {
-		return 1.5;
+	@Override
+	protected double fetchRentPrice(int daysRented) {
+		double amt = 1.5;
+		int thresholdDays = 3;
+		if (daysRented > thresholdDays) {
+			amt += (daysRented - thresholdDays) * 2;
+		}
+		return amt;
 	}
 
-	public int getThresholdDays() {
-		return 3;
-	}
+	public static class ChildrenBookBuilder extends Book.BookBuilder<ChildrenBook> {
 
-	public double getMultiplyingFactor() {
-		return 2;
+		public ChildrenBookBuilder(String title) {
+			super(title);
+		}
+
+		public ChildrenBook build() {
+			return new ChildrenBook(this);
+		}
+
 	}
 
 }

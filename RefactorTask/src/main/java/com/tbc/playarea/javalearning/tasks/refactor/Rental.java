@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * Represent a customer renting a book.
+ * 
  * @author shvetap
  * 
  */
@@ -24,27 +25,16 @@ public class Rental implements Serializable {
 		this.daysRented = daysRented;
 	}
 
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-	public int getDaysRented() {
-		return daysRented;
-	}
-
-	public void setDaysRented(int daysRented) {
-		this.daysRented = daysRented;
-	}
-	
 	public double fetchRentalPrice() {
-		return book.fetchRentPrice(getDaysRented());
+		return book.fetchRentPrice(daysRented);
+	}
+
+	public int fetchRentalPoints() {
+		return book.fetchRentalPoints(daysRented);
 	}
 	
-	public int fetchRentalPoints() {
-		return book.fetchRentalPoints(getDaysRented());}
+	public String getTitle() {
+		return book.getTitle();
+	}
 
 }
