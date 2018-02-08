@@ -11,6 +11,8 @@ import java.util.List;
  * Customer class that denotes customer details as well as customer related
  * operations.
  * 
+ * @author shvetap
+ * 
  */
 public class Customer implements Serializable {
 
