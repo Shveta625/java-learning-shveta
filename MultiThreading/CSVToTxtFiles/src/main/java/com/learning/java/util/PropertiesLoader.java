@@ -10,6 +10,12 @@ import java.util.logging.Logger;
 
 import com.learning.java.threads.WriterForkJoinThread;
 
+/**
+ * Class to load properties file
+ * 
+ * @author shvetap
+ *
+ */
 public class PropertiesLoader {
 	Logger logger = Logger.getLogger(WriterForkJoinThread.class.getName());
 
