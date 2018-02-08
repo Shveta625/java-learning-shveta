@@ -12,13 +12,18 @@ import com.learning.java.threads.WriterForkJoinThread;
 
 public class PropertiesLoader {
 	Logger logger = Logger.getLogger(WriterForkJoinThread.class.getName());
-	
+
+	/**
+	 * Load properties from property file
+	 * 
+	 * @return
+	 */
 	public Properties loadProperties() {
 		Properties properties = new Properties();
 		try {
-		File file = new File(getClass().getResource("/config.properties").toURI());
-		FileInputStream fileInput = null;
-		
+			File file = new File(getClass().getResource("/config.properties").toURI());
+			FileInputStream fileInput = null;
+
 			fileInput = new FileInputStream(file);
 			properties.load(fileInput);
 		} catch (IOException | URISyntaxException e) {

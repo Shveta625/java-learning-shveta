@@ -25,14 +25,29 @@ public class Rental implements Serializable {
 		this.daysRented = daysRented;
 	}
 
+	/**
+	 * Fetch Rental price corresponding the book
+	 * 
+	 * @return rental price
+	 */
 	public double fetchRentalPrice() {
 		return book.fetchRentPrice(daysRented);
 	}
 
+	/**
+	 * Fetch rental points correspondng the book
+	 * 
+	 * @return rental points
+	 */
 	public int fetchRentalPoints() {
 		return book.fetchRentalPoints(daysRented);
 	}
-	
+
+	/**
+	 * Get title of the book
+	 * 
+	 * @return title
+	 */
 	public String getTitle() {
 		return book.getTitle();
 	}

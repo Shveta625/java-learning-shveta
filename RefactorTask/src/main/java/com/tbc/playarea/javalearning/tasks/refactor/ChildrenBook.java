@@ -30,6 +30,12 @@ public class ChildrenBook extends Book {
 		return amt;
 	}
 
+	/**
+	 * Builder class for ChildrenBook
+	 * 
+	 * @author shvetap
+	 *
+	 */
 	public static class ChildrenBookBuilder extends Book.BookBuilder<ChildrenBook> {
 
 		public ChildrenBookBuilder(String title) {

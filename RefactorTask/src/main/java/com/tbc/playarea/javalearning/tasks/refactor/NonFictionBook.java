@@ -24,6 +24,11 @@ public class NonFictionBook extends Book {
 		return daysRented * 3.0;
 	}
 
+	/**
+	 * Builder class for NonFictionBook
+	 * @author shvetap
+	 *
+	 */
 	public static class NonFictionBookBuilder extends Book.BookBuilder<NonFictionBook> {
 
 		public NonFictionBookBuilder(String title) {

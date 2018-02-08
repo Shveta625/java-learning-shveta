@@ -29,6 +29,11 @@ public class FictionBook extends Book {
 		return amt;
 	}
 
+	/**
+	 * Builder class for FictionBook
+	 * @author shvetap
+	 *
+	 */
 	public static class FictionBookBuilder extends Book.BookBuilder<FictionBook> {
 
 		public FictionBookBuilder(String title) {

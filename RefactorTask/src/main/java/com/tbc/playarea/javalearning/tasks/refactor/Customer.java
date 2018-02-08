@@ -30,6 +30,12 @@ public class Customer implements Serializable {
 		return rentals;
 	}
 
+	/**
+	 * add rental to rental list
+	 * 
+	 * @param rental
+	 *            rental to be added
+	 */
 	public void addRental(final Rental rental) {
 		getRentals().add(rental);
 	}
