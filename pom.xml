@@ -13,8 +13,10 @@
 
 	<modules>
 		<module>MultiThreading</module>
-		<module>Generics</module>
+		
 		<module>RefactorTask</module>
+		<module>Collections</module>
+		<module>Annotations</module>
 	</modules>
 
 	<dependencies>

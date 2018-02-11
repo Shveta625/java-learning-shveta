@@ -12,3 +12,8 @@ MULTI-THREADING TASK #2
 
 For Wiki to text files task, run WikiToLocalFiles as java application
 Time taken to write txt files is 78.307 seconds.
+
+ANNOTATIONS TASK
+
+For field annotation test, run AadharTesting, BankStatementTesting and PanCardTesting as JUnit Test
+For across documents testing, run DocumentsTesting as JUnit Test

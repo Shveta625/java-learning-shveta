@@ -1,0 +1,9 @@
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/Rental.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/Book.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/service/StatementService.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/ChildrenBook.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/service/impl/RentalStatementServiceImpl.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/NonFictionBook.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/service/impl/RentalConsoleStatementGenerator.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/FictionBook.java
+/home/shvetap/eclipse-workspace/JavaLearning/RefactorTask/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/Customer.java
