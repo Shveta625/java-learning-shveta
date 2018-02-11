@@ -20,7 +20,7 @@ public class ReaderThread implements Runnable {
 
 	private String fileToRead;
 	static final int THRESHOLD = 100;
-	Logger logger = Logger.getLogger(WriterForkJoinThread.class.getName());
+	Logger logger = Logger.getLogger(ReaderThread.class.getName());
 
 	public ReaderThread(String fileToRead) {
 		super();
