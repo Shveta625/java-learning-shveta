@@ -29,7 +29,7 @@ public class WriterThread implements Runnable {
 
 	@Override
 	public void run() {
-		Logger logger = Logger.getLogger(ReaderThread.class.getName());
+		Logger logger = Logger.getLogger(WriterThread.class.getName());
 		Properties properties = (new PropertiesLoader()).loadProperties();
 		try {
 			Files.write(

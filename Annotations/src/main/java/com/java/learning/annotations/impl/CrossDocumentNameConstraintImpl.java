@@ -16,14 +16,13 @@ public class CrossDocumentNameConstraintImpl implements ConstraintValidator<Cros
 
 	@Override
 	public boolean isValid(Documents documents, ConstraintValidatorContext arg1) {
-		boolean valid=false;
-		String aadharName=documents.getAadhar().getFullname();
-		String bankStatementName=documents.getBankStatement().getCustomerName();
-		String panCardName=documents.getPanCard().getFullname();
-		if (aadharName!=null && bankStatementName!=null && panCardName!=null) {
-			if(aadharName.equalsIgnoreCase(bankStatementName) && aadharName.equalsIgnoreCase(panCardName)) {
-				valid=true;
-			}
+		boolean valid = false;
+		String aadharName = documents.getAadhar().getFullname();
+		String bankStatementName = documents.getBankStatement().getCustomerName();
+		String panCardName = documents.getPanCard().getFullname();
+		if (aadharName != null && bankStatementName != null && panCardName != null
+				&& aadharName.equalsIgnoreCase(bankStatementName) && aadharName.equalsIgnoreCase(panCardName)) {
+			valid = true;
 		}
 		return valid;
 	}

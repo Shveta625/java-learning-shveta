@@ -17,6 +17,7 @@
 		<module>RefactorTask</module>
 		<module>Collections</module>
 		<module>Annotations</module>
+		<module>WordCount</module>
 	</modules>
 
 	<dependencies>

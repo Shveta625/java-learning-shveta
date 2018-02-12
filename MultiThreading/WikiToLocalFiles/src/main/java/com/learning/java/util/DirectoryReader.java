@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.learning.java.threads.ReaderThread;
-
 /**
  * To read directory
  * 
@@ -23,7 +21,7 @@ public class DirectoryReader {
 	}
 
 	public File[] readDirectory() {
-		Logger logger = Logger.getLogger(ReaderThread.class.getName());
+		Logger logger = Logger.getLogger(DirectoryReader.class.getName());
 		File[] files = null;
 		try {
 			File dir = new File(getClass().getResource("/" + dirToRead).toURI());

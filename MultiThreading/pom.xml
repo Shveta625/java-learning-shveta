@@ -11,7 +11,8 @@
 	<modules>
 		<module>CSVToTxtFiles</module>
 		<module>WikiToLocalFiles</module>
-		<module>WordCount</module>
+		
+		<module>WordsCount</module>
 	</modules>
 
 	<dependencies>

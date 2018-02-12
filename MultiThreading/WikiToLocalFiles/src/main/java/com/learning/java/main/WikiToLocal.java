@@ -46,7 +46,7 @@ public class WikiToLocal {
 	 */
 	private static void startThreads(List<File> files) {
 		Logger logger = Logger.getLogger(ReaderThread.class.getName());
-		for (File file : files) {
+		files.parallelStream().forEach(file->{
 			List<String> words = getWordsFromFile(file);
 			words.parallelStream().forEach(searchWord -> {
 				if (searchWord != null && !searchWord.isEmpty()) {
@@ -61,7 +61,7 @@ public class WikiToLocal {
 					}
 				}
 			});
-		}
+		});
 	}
 
 	private static List<String> getWordsFromFile(File file) {

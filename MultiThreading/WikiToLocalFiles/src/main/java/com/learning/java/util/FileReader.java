@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.learning.java.threads.ReaderThread;
-
 /**
  * To read file
  * 
@@ -73,7 +71,7 @@ public class FileReader {
 	 * @return words in file
 	 */
 	public List<String> read() {
-		Logger logger = Logger.getLogger(ReaderThread.class.getName());
+		Logger logger = Logger.getLogger(FileReader.class.getName());
 		List<String> lines = new ArrayList<>();
 		try {
 			lines = Files.readAllLines(file.toPath(), charset);
@@ -97,14 +95,14 @@ public class FileReader {
 			wordList.addAll(lines);
 		} else {
 			if (wordPosition >= 0) {
-				lines.stream().parallel().forEach(a -> {
-					String[] temp = a.split(this.wordSeparator);
+				lines.parallelStream().forEach(line -> {
+					String[] temp = line.split(this.wordSeparator);
 					if (temp.length > wordPosition) {
 						wordList.add(temp[this.wordPosition]);
 					}
 				});
 			} else {
-				lines.stream().parallel().forEach(a -> wordList.addAll(Arrays.asList(a.split(this.wordSeparator))));
+				lines.parallelStream().forEach(a -> wordList.addAll(Arrays.asList(a.split(this.wordSeparator))));
 
 			}
 		}
