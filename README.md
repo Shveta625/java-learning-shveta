@@ -24,3 +24,7 @@ ANNOTATIONS TASK
 
 For field annotation test, run AadharTesting, BankStatementTesting and PanCardTesting as JUnit Test.
 For across documents testing, run DocumentsTesting as JUnit Test.
+
+COLLECTIONS TASK
+
+For Least recently used cache task, add arguments i.e., page numbers to run configuration of Cache(For example: 3 5 6 3 7 2 6 1 3 2 1 3 2 6) and run as java application.
