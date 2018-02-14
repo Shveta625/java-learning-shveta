@@ -16,7 +16,9 @@ Time taken to write txt files is 78.307 seconds.
 
 MULTI-THREADING TASK #3
 
-For Word count task, run WordCount as java application.
+For Word count task, 
+Run MULTI-THREADING TASK #2 (WikiToLocal), 
+then run WordCount as java application.
 Time taken to calculate and write words with their corresponding count to txt files is 0.317 seconds.
 
 

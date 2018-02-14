@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * Reader Thread
@@ -30,16 +31,24 @@ public final class ReaderThread implements Callable<ConcurrentMap<String, Long>>
 
 	@Override
 	public ConcurrentMap<String, Long> call() throws Exception {
-
+		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
 		files.parallelStream().forEach(file -> {
 			List<String> lines = readLines(file);
-			lines.parallelStream().forEach(line -> Arrays.asList(line.split(" ")).forEach(word -> {
-				if (wordCount.containsKey(word)) {
-					wordCount.put(word, wordCount.get(word) + 1);
-				} else {
-					wordCount.put(word, (long) 1);
-				}
-			}));
+			lines.parallelStream().forEach(line -> {
+				List<String> words = new ArrayList<>();
+				Arrays.asList(line.trim().replaceAll(" +", " ").split(" ")).stream().forEach(word->{
+					if(pattern.matcher(word).matches()) {
+						words.add(word);
+					}
+				});
+				words.forEach(word -> {
+					if (wordCount.containsKey(word)) {
+						wordCount.put(word, wordCount.get(word) + 1);
+					} else {
+						wordCount.put(word, (long) 1);
+					}
+				});
+			});
 		});
 		return wordCount;
 
