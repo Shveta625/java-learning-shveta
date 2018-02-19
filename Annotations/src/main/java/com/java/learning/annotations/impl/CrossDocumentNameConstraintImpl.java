@@ -19,7 +19,7 @@ public class CrossDocumentNameConstraintImpl implements Constraint {
 	}
 
 	@Override
-	public boolean isValid(Object docs, Field filed) {
+	public boolean isValid(Object docs, Field field) {
 		boolean valid = false;
 		if (docs instanceof Documents) {
 			Documents documents;
