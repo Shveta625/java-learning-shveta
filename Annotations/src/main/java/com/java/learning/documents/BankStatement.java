@@ -17,23 +17,23 @@ public class BankStatement {
 	
 	@NotNullConstraint
 	@LengthConstraint(value = 12)
-	private String accountNumber;
+	public String accountNumber;
 	
 	@NotNullConstraint
 	@CharacterOnlyConstraint
-	private String customerName;
+	public String customerName;
 	
 	@NotNullConstraint
-	private String address;
+	public String address;
 	
 	@NotNullConstraint
 	@LengthConstraint(value = 10)
-	private String mobileNumber;
+	public String mobileNumber;
 	
 	@EmailValidityConstraint
-	private String email;
+	public String email;
 	
-	private List<Transaction> transactions;
+	public List<Transaction> transactions;
 	
 
 	public String getAccountNumber() {

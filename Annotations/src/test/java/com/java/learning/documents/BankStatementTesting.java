@@ -2,15 +2,12 @@ package com.java.learning.documents;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.java.learning.framework.Validator;
 
 /**
  * Class testing annotations associated with {@link BankStatement}
@@ -20,13 +17,13 @@ import org.junit.Test;
  */
 public class BankStatementTesting {
 
-	private Validator validator;
 	private BankStatement bankStatement;
+	List<String> violations;
+	Validator validator;
 
 	@Before
 	public void setUp(){
-		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+		validator=new Validator();
 		bankStatement = new BankStatement();
 		bankStatement.setAccountNumber("123456789012");
 		bankStatement.setAddress("ABC, XYZCity");
@@ -38,7 +35,7 @@ public class BankStatementTesting {
 	@Test
 	public void testEmptyBankStatement() {
 		BankStatement dummyBankStatement=new BankStatement();
-		Set<ConstraintViolation<BankStatement>> violations = validator.validate(dummyBankStatement);	
+		violations = validator.validate(dummyBankStatement);	
         assertEquals(8, violations.size());
 	}
 	
@@ -46,21 +43,21 @@ public class BankStatementTesting {
 	public void testLengthConstraintInBankStatement() {
 		bankStatement.setAccountNumber("123456");
 		bankStatement.setMobileNumber("123");
-		Set<ConstraintViolation<BankStatement>> violations = validator.validate(bankStatement);	
+		violations = validator.validate(bankStatement);	
         assertEquals(2, violations.size());
 	}
 	
 	@Test
 	public void testCharacterOnlyConstraintInBankStatement() {
 		bankStatement.setCustomerName("123ABC");
-		Set<ConstraintViolation<BankStatement>> violations = validator.validate(bankStatement);	
+		violations = validator.validate(bankStatement);	
         assertEquals(1, violations.size());
 	}	
 	
 	@Test
 	public void testEmailValidityConstraintInBankStatement() {
 		bankStatement.setEmail("email");
-		Set<ConstraintViolation<BankStatement>> violations = validator.validate(bankStatement);	
+		violations = validator.validate(bankStatement);	
         assertEquals(1, violations.size());
 	}
 	

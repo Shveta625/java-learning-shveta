@@ -1,29 +1,36 @@
 package com.java.learning.annotations.impl;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 
 import com.java.learning.annotations.LengthConstraint;
+import com.java.learning.framework.Constraint;
+
 /**
  * Implementation to validate length constraint
  * 
  * @author shvetap
  *
  */
-public class LengthConstraintImpl implements ConstraintValidator<LengthConstraint, String> {
+public final class LengthConstraintImpl implements Constraint {
 
-	int value;
-
+	
 	@Override
-	public void initialize(LengthConstraint lengthConstraint) {
-		this.value = lengthConstraint.value();
+	public String message() {
+		return "Invalid length";
 	}
-
+	
 	@Override
-	public boolean isValid(String string, ConstraintValidatorContext arg1) {
+	public boolean isValid(Object obj,Field field) {
+		LengthConstraint lengthConstraint = null;
 		boolean valid = false;
-		if (string != null) {
-			valid = (string.length() == this.value);
+		for (Annotation annotation : field.getAnnotations()) {
+			if (annotation.annotationType() == LengthConstraint.class) {
+				lengthConstraint = (LengthConstraint) annotation;
+			}
+		}
+		if (obj instanceof String && lengthConstraint != null) {
+			valid = (obj.toString().length() == lengthConstraint.value());
 		}
 		return valid;
 	}

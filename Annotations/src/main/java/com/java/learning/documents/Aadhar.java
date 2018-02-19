@@ -15,16 +15,16 @@ public class Aadhar {
 
 	@NotNullConstraint
 	@CharacterOnlyConstraint
-	private String fullname;
+	public String fullname;
 
 	@NotNullConstraint
-	private String gender;
+	public String gender;
 
 	@NotNullConstraint
-	private String address;
+	public String address;
 
 	@NotNullConstraint
-	private Date dob;
+	public Date dob;
 
 	public String getFullname() {
 		return fullname;

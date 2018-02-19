@@ -16,21 +16,21 @@ public class PanCard {
 	
 	@NotNullConstraint
 	@CharacterOnlyConstraint
-	private String fullname;
+	public String fullname;
 
 	@NotNullConstraint
 	@CharacterOnlyConstraint
-	private String fatherName;
+	public String fatherName;
 	
 	@NotNullConstraint
 	@LengthConstraint(value=10)
-	private String panNumber;
+	public String panNumber;
 
 	@NotNullConstraint
-	private String issuedBy;
+	public String issuedBy;
 
 	@NotNullConstraint
-	private Date dob;
+	public Date dob;
 
 	public String getFullname() {
 		return fullname;

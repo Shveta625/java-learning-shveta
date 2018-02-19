@@ -10,11 +10,11 @@ import java.util.Date;
  */
 public class Transaction {
 	
-	private String id;
+	public String id;
 
-	private String description;
+	public String description;
 
-	private double amount;
+	public double amount;
 
-	private Date transactionTime;
+	public Date transactionTime;
 }

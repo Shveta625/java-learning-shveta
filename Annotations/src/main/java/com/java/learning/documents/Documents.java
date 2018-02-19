@@ -11,9 +11,9 @@ import com.java.learning.annotations.CrossDocumentNameConstraint;
 @CrossDocumentNameConstraint
 public class Documents {
 
-	private Aadhar aadhar;
-	private BankStatement bankStatement;
-	private PanCard panCard;
+	public Aadhar aadhar;
+	public BankStatement bankStatement;
+	public PanCard panCard;
 	public Aadhar getAadhar() {
 		return aadhar;
 	}

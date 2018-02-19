@@ -1,9 +1,8 @@
 package com.java.learning.annotations.impl;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import java.lang.reflect.Field;
 
-import com.java.learning.annotations.NotNullConstraint;
+import com.java.learning.framework.Constraint;
 
 /**
  * Implementation to validate not null constraint
@@ -11,10 +10,17 @@ import com.java.learning.annotations.NotNullConstraint;
  * @author shvetap
  *
  */
-public class NotNullConstraintImpl implements ConstraintValidator<NotNullConstraint, Object> {
+public class NotNullConstraintImpl implements Constraint{
 
+	
 	@Override
-	public boolean isValid(Object obj, ConstraintValidatorContext arg1) {
+	public String message() {
+		return "Value cannot be null";
+	}
+	
+	
+	@Override
+	public boolean isValid(Object obj, Field field) {
 		return obj != null;
 	}
 

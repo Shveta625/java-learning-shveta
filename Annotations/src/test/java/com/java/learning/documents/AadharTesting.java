@@ -3,15 +3,12 @@ package com.java.learning.documents;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.java.learning.framework.Validator;
 
 /**
  * Class testing annotations associated with {@link Aadhar}
@@ -21,13 +18,13 @@ import org.junit.Test;
  */
 public class AadharTesting {
 
-	private Validator validator;
 	private Aadhar aadhar;
+	List<String> violations;
+	Validator validator;
 
 	@Before
 	public void setUp(){
-		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+		validator=new Validator();
 		aadhar = new Aadhar();
 		aadhar.setFullname("Firstname LastName");
 		aadhar.setGender("Female");
@@ -38,14 +35,14 @@ public class AadharTesting {
 	@Test
 	public void testEmptyAadhar() {
 		Aadhar dummyAadhar=new Aadhar();
-		Set<ConstraintViolation<Aadhar>> violations = validator.validate(dummyAadhar);	
+		violations=validator.validate(dummyAadhar);
         assertEquals(5, violations.size());
 	}
 	
 	@Test
 	public void testCharacterOnlyConstraintInAadhar() {
 		aadhar.setFullname("123ABC");
-		Set<ConstraintViolation<Aadhar>> violations = validator.validate(aadhar);	
+		violations=validator.validate(aadhar);
         assertEquals(1, violations.size());
 	}	
 	

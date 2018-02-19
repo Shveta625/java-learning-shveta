@@ -2,15 +2,12 @@ package com.java.learning.documents;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.java.learning.framework.Validator;
 
 /**
  * Class testing annotations associated with {@link Documents}
@@ -20,21 +17,20 @@ import org.junit.Test;
  */
 public class DocumentsTesting {
 
-	private Validator validator;
+	List<String> violations;
+	Validator validator;
 	private Aadhar aadhar;
 	private PanCard panCard;
 	private BankStatement bankStatement;
 
 	@Before
-	public void setUp(){
-		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
+	public void setUp() {
+		validator = new Validator();
 		aadhar = new Aadhar();
 		aadhar.setFullname("Firstname LastName");
-		
+
 		panCard = new PanCard();
 		panCard.setFullname("Firstname");
-		
 
 		bankStatement = new BankStatement();
 		bankStatement.setCustomerName("Firstname LastName");
@@ -42,9 +38,9 @@ public class DocumentsTesting {
 
 	@Test
 	public void testNameConstraint() {
-		Documents documents=new Documents(aadhar, bankStatement, panCard);
-		Set<ConstraintViolation<Documents>> violations = validator.validate(documents);	
-        assertEquals(1, violations.size());
+		Documents documents = new Documents(aadhar, bankStatement, panCard);
+		violations = validator.validate(documents);
+		assertEquals(1, violations.size());
 	}
-	
+
 }
