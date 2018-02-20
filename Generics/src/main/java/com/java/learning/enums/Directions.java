@@ -1,5 +1,11 @@
 package com.java.learning.enums;
 
+/**
+ * Enum for directions.
+ * 
+ * @author shvetap
+ *
+ */
 public enum Directions {
 
 	NORTH("north"), SOUTH("south"), EAST("east"), WEST("west");
