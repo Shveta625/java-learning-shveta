@@ -1,4 +1,4 @@
-package com.tbc.playarea.javalearning.tasks.refactor.test;
+package com.tbc.playarea.javalearning.tasks.refactor;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
