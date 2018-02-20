@@ -11,9 +11,7 @@ import com.java.learning.services.PageRequestHandler;
 public final class LRU {
 
 	public static void main(String[] pageRequests) throws Exception {
-		long start = System.currentTimeMillis();
 		PageRequestHandler pageRequestHandler = new PageRequestHandler();
 		pageRequestHandler.handlePageRequests(pageRequests);
-		System.out.println(System.currentTimeMillis() - start);
 	}
 }

@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 public final class ReaderThread implements Callable<List<String>> {
 
 	File file;
+
 	public ReaderThread(File file) {
 		super();
 		this.file = file;
@@ -27,16 +28,14 @@ public final class ReaderThread implements Callable<List<String>> {
 
 	@Override
 	public List<String> call() throws Exception {
-		List<String> words=new ArrayList<>();
+		List<String> words = new ArrayList<>();
 		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
-			List<String> lines = readLines(file);
-			lines.parallelStream().forEach(line -> {
-				Arrays.asList(line.trim().split(" ")).stream().forEach(word->{
-					if(pattern.matcher(word).matches()) {
-						words.add(word);
-					}
-				});
-			});
+		List<String> lines = readLines(file);
+		lines.parallelStream().forEach(line -> Arrays.asList(line.trim().split(" ")).stream().forEach(word -> {
+			if (pattern.matcher(word).matches()) {
+				words.add(word);
+			}
+		}));
 		return words;
 	}
 
