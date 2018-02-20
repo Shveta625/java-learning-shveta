@@ -13,6 +13,7 @@
 		<module>WikiToLocalFiles</module>
 		
 		<module>WordsCount</module>
+		<module>AutoSuggest</module>
 	</modules>
 
 	<dependencies>

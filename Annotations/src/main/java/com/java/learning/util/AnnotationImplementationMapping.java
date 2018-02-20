@@ -12,12 +12,29 @@ import com.java.learning.annotations.impl.LengthConstraintImpl;
 import com.java.learning.annotations.impl.NotNullConstraintImpl;
 import com.java.learning.framework.Constraint;
 
+/**
+ * Annotation and its corresponding implementation mapping class.
+ * 
+ * @author shvetap
+ *
+ */
 public final class AnnotationImplementationMapping {
-	
+
+	/**
+	 * Private constructor to avoid instantiation of class
+	 */
 	private AnnotationImplementationMapping() {
 
 	}
 
+	/**
+	 * get implementation class corresponding annotation
+	 * 
+	 * @param annotaion
+	 *            annotation corresponding which implementation class has to be
+	 *            found
+	 * @return implementation class
+	 */
 	public static Class<? extends Constraint> getAnnotaionImplemention(Class<?> annotaion) {
 		Class<? extends Constraint> impl = null;
 		if (annotaion == CharacterOnlyConstraint.class) {

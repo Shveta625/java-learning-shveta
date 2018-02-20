@@ -4,11 +4,28 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.java.learning.util.AnnotationImplementationMapping;
 
+/**
+ * Class to validate objects
+ * 
+ * @author shvetap
+ *
+ */
 public class Validator {
 
+	Logger logger = Logger.getLogger(Validator.class.getName());
+
+	/**
+	 * Validates object
+	 * 
+	 * @param object
+	 *            object to be validated
+	 * @return List of validations violated
+	 */
 	public List<String> validate(Object object) {
 		Field[] fields = object.getClass().getFields();
 		List<String> violations = new ArrayList<>();
@@ -20,14 +37,25 @@ public class Validator {
 			for (Annotation annotation : annotations) {
 				try {
 					violations.addAll(getViolations(annotation, field.get(object), field));
-				} catch (IllegalArgumentException | IllegalAccessException e1) {
-					e1.printStackTrace();
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 				}
 			}
 		}
 		return violations;
 	}
 
+	/**
+	 * To get violations
+	 * 
+	 * @param annotation
+	 *            {@link Annotation}
+	 * @param obj
+	 *            object against which violations are to be found
+	 * @param field
+	 *            field corresponding annotation
+	 * @return list of violations
+	 */
 	private List<String> getViolations(Annotation annotation, Object obj, Field field) {
 		List<String> violations = new ArrayList<>();
 		try {
@@ -37,7 +65,7 @@ public class Validator {
 				violations.add(annotaionImpl.message());
 			}
 		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 		}
 		return violations;
 

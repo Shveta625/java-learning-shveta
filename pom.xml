@@ -21,6 +21,7 @@
 		
 		
 		<module>ReactiveProgramming</module>
+		<module>Generics</module>
 	</modules>
 
 	<dependencies>

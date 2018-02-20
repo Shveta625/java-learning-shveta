@@ -1,6 +1,8 @@
 package com.java.learning.annotations.impl;
 
 import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.java.learning.documents.Documents;
 import com.java.learning.framework.Constraint;
@@ -20,6 +22,7 @@ public class CrossDocumentNameConstraintImpl implements Constraint {
 
 	@Override
 	public boolean isValid(Object docs, Field field) {
+		Logger logger = Logger.getLogger(CrossDocumentNameConstraintImpl.class.getName());
 		boolean valid = false;
 		if (docs instanceof Documents) {
 			Documents documents;
@@ -34,7 +37,7 @@ public class CrossDocumentNameConstraintImpl implements Constraint {
 					valid = true;
 				}
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
+				logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 			}
 		}
 		return valid;

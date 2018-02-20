@@ -18,45 +18,70 @@ import com.learning.java.threads.ReaderThread;
 import com.learning.java.util.DirectoryReader;
 import com.learning.java.util.PropertiesLoader;
 
+/**
+ * Auto Suggest
+ * 
+ * @author shvetap
+ *
+ */
 public class AutoSuggest {
 
 	private static Properties properties = (new PropertiesLoader()).loadProperties();
-	static TrieNode trie = new TrieNode();
-	static List<String> words = new ArrayList<>();
+	static Logger logger = Logger.getLogger(AutoSuggest.class.getName());
 
 	public static void main(String[] args) {
 		createDirectory();
 		List<File> files = Arrays.asList((new DirectoryReader(properties.getProperty("dirToRead"))).readDirectory());
-		startThreads(files);
-		createTrie(words);
-		try {
-			Files.write(Paths.get(properties.getProperty("outputDirectory") + "/" + "AutoSuggest.txt"),
-					findSuggestions(args[0]));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		List<String> words = readWords(files);
+		TrieNode trie = createTrie(words);
+		List<String> suggestions = findSuggestions(trie, args[0]);
+		writeToOutputFile(suggestions);
 	}
 
 	/**
-	 * Start reader and writer threads
+	 * Write to output file
 	 * 
-	 * @param files
+	 * @param suggestions
+	 *            Suggestions to be written
 	 */
-	private static void startThreads(List<File> files) {
-		Logger logger = Logger.getLogger(AutoSuggest.class.getName());
-		FutureTask<List<String>> futureTask = new FutureTask<>(new ReaderThread(files));
-		Thread reader = new Thread(futureTask);
-		reader.start();
+	private static void writeToOutputFile(List<String> suggestions) {
 		try {
-			words = futureTask.get();
-			createTrie(words);
-		} catch (InterruptedException | ExecutionException e) {
+			Files.write(Paths.get(properties.getProperty("outputDirectory") + "/" + "AutoSuggest.txt"), suggestions);
+		} catch (IOException e) {
 			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 		}
 	}
 
-	private static List<String> findSuggestions(String sequence) {
+	/**
+	 * Read words from files
+	 * 
+	 * @param files
+	 */
+	private static List<String> readWords(List<File> files) {
+		List<String> words = new ArrayList<>();
+		files.parallelStream().forEach(file -> {
+			FutureTask<List<String>> futureTask = new FutureTask<>(new ReaderThread(file));
+			Thread reader = new Thread(futureTask);
+			reader.start();
+			try {
+				words.addAll(futureTask.get());
+			} catch (InterruptedException | ExecutionException e) {
+				logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
+			}
+		});
+		return words;
+	}
+
+	/**
+	 * Find possible suggestions
+	 * 
+	 * @param trie
+	 *            {@link TrieNode}
+	 * @param sequence
+	 *            sequence entered by user
+	 * @return Suggestions corresponding input sequence
+	 */
+	private static List<String> findSuggestions(TrieNode trie, String sequence) {
 		return TrieNode.findBySequence(trie, sequence);
 	}
 
@@ -68,10 +93,16 @@ public class AutoSuggest {
 		file.mkdir();
 	}
 
+	/**
+	 * Creates trie
+	 * 
+	 * @param words
+	 *            words to be included in trie
+	 * @return {@link TrieNode}
+	 */
 	private static TrieNode createTrie(List<String> words) {
-		words.parallelStream().forEach(word -> {
-			trie.addWord(word);
-		});
+		TrieNode trie = new TrieNode();
+		words.parallelStream().forEach(trie::addWord);
 		return trie;
 	}
 }

@@ -19,17 +19,16 @@ import java.util.regex.Pattern;
  */
 public final class ReaderThread implements Callable<List<String>> {
 
-	List<File> files;
-	public ReaderThread(List<File> files) {
+	File file;
+	public ReaderThread(File file) {
 		super();
-		this.files = files;
+		this.file = file;
 	}
 
 	@Override
 	public List<String> call() throws Exception {
 		List<String> words=new ArrayList<>();
 		Pattern pattern = Pattern.compile("^[A-Za-z]*$");
-		files.parallelStream().forEach(file -> {
 			List<String> lines = readLines(file);
 			lines.parallelStream().forEach(line -> {
 				Arrays.asList(line.trim().split(" ")).stream().forEach(word->{
@@ -38,7 +37,6 @@ public final class ReaderThread implements Callable<List<String>> {
 					}
 				});
 			});
-		});
 		return words;
 	}
 
