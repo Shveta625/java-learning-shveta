@@ -1,4 +1,4 @@
-package com.learning.java.temp;
+package com.learning.java.util;
 
 public enum ContentType {
 	TEXT, ATTACHMENT;

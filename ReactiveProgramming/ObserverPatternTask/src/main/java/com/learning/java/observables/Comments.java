@@ -1,13 +1,8 @@
 package com.learning.java.observables;
 
-import java.util.Map;
+public class Comments extends BlogSection {
 
-import com.learning.java.temp.Content;
-import com.learning.java.temp.ContentType;
-
-public class Comments implements BlogSection{
-
-
-	private String name;
-	private Map<ContentType, Content> contentMap;
+	public Comments(String name2) {
+		super(name2);
+	}
 }
