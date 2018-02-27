@@ -15,15 +15,12 @@ import java.util.logging.Logger;
  *
  */
 public final class PropertiesLoader {
-	Logger logger = Logger.getLogger(PropertiesLoader.class.getName());
 
-	/**
-	 * Load properties from property file
-	 * 
-	 * @return
-	 */
-	public Properties loadProperties() {
-		Properties properties = new Properties();
+	private static PropertiesLoader instance = null;
+	Logger logger = Logger.getLogger(PropertiesLoader.class.getName());
+	private static Properties properties=new Properties();
+
+	private PropertiesLoader() {
 		try {
 			File file = new File(getClass().getResource("/config.properties").toURI());
 			FileInputStream fileInput = null;
@@ -33,7 +30,16 @@ public final class PropertiesLoader {
 		} catch (IOException | URISyntaxException e) {
 			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));
 		}
-		return properties;
+	}
+
+	public static synchronized PropertiesLoader getInstance() {
+		if (instance == null)
+			instance = new PropertiesLoader();
+		return instance;
+	}
+
+	public String getProperty(String propKey) {
+		return properties.getProperty(propKey);
 	}
 
 }

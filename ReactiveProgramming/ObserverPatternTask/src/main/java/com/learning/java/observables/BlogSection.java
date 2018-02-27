@@ -17,7 +17,6 @@ public abstract class BlogSection implements Observable {
 
 	protected String name;
 	private Map<Observer, List<ContentType>> observers = new HashMap<>();
-	protected boolean changed;
 	private Map<Content<?>, ContentType> contentMap = new HashMap<>();
 
 	protected BlogSection(String name) {

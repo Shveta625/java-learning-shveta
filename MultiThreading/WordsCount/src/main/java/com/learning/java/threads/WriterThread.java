@@ -3,7 +3,6 @@ package com.learning.java.threads;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,6 @@ import com.learning.java.util.PropertiesLoader;
  */
 public final class WriterThread implements Runnable {
 
-	private static Properties properties = (new PropertiesLoader()).loadProperties();
 
 	ConcurrentMap<String, Long> map;
 
@@ -32,7 +30,7 @@ public final class WriterThread implements Runnable {
 		Logger logger = Logger.getLogger(WriterThread.class.getName());
 
 		try {
-			Files.write(Paths.get(properties.getProperty("outputDirectory") + "/" + "WordCount.txt"),
+			Files.write(Paths.get(PropertiesLoader.getInstance().getProperty("outputDirectory") + "/" + "WordCount.txt"),
 					() -> map.entrySet().stream().<CharSequence>map(e -> e.getKey() + " " + e.getValue()).iterator());
 
 		} catch (IOException e) {

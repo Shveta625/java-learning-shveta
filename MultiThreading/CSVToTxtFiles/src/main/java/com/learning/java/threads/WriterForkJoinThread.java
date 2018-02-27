@@ -28,7 +28,6 @@ public class WriterForkJoinThread extends RecursiveAction {
 	private static final long serialVersionUID = -7412617337563360202L;
 	static final int THRESHOLD = 10;
 	private List<String> lines;
-	transient PropertiesLoader properties=new PropertiesLoader();
 	transient Logger logger = Logger.getLogger(WriterForkJoinThread.class.getName());
 
 	public WriterForkJoinThread(List<String> lines) {
@@ -72,7 +71,7 @@ public class WriterForkJoinThread extends RecursiveAction {
 	 */
 	private void writeToFile(List<String> lines) {
 		try 	{
-			Files.write(Paths.get(properties.loadProperties().getProperty("OUTPUT_DIRECTORY")+"/TestingCSV" + atomicInteger.incrementAndGet() + ".txt"), lines,
+			Files.write(Paths.get(PropertiesLoader.getInstance().getProperty("OUTPUT_DIRECTORY")+"/TestingCSV" + atomicInteger.incrementAndGet() + ".txt"), lines,
 					Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));

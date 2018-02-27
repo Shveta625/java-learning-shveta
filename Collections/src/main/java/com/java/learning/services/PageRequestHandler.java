@@ -1,6 +1,5 @@
 package com.java.learning.services;
 
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,8 +14,7 @@ import com.java.learning.util.PropertiesLoader;
  *
  */
 public final class PageRequestHandler {
-	Properties properties = new PropertiesLoader().loadProperties();
-	int cachesize = Integer.parseInt(properties.getProperty("chacheSize"));
+	int cachesize = Integer.parseInt(PropertiesLoader.getInstance().getProperty("chacheSize"));
 	Logger logger = Logger.getLogger(PageRequestHandler.class.getName());
 	Cache cache1 = new Cache(cachesize);
 

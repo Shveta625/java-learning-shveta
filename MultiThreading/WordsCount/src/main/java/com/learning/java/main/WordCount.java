@@ -3,7 +3,6 @@ package com.learning.java.main;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
@@ -24,11 +23,10 @@ import com.learning.java.util.PropertiesLoader;
  */
 public final class WordCount {
 
-	private static Properties properties = (new PropertiesLoader()).loadProperties();
-
+private static PropertiesLoader propertiesLoader=PropertiesLoader.getInstance();
 	public static void main(String[] args) {
 		createDirectory();
-		List<File> files = Arrays.asList((new DirectoryReader(properties.getProperty("dirToRead"))).readDirectory());
+		List<File> files = Arrays.asList((new DirectoryReader(propertiesLoader.getProperty("dirToRead"))).readDirectory());
 		startThreads(files);
 
 	}
@@ -58,7 +56,7 @@ public final class WordCount {
 	 * Creates a directory.
 	 */
 	private static void createDirectory() {
-		File file = new File(properties.getProperty("outputDirectory"));
+		File file = new File(propertiesLoader.getProperty("outputDirectory"));
 		file.mkdir();
 	}
 

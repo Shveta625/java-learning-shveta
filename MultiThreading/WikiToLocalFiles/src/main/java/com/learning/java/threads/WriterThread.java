@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,10 +29,9 @@ public class WriterThread implements Runnable {
 	@Override
 	public void run() {
 		Logger logger = Logger.getLogger(WriterThread.class.getName());
-		Properties properties = (new PropertiesLoader()).loadProperties();
 		try {
 			Files.write(
-					Paths.get(properties.getProperty("outputDirectory") + "/" + title.replaceAll("/", "|") + ".txt"),
+					Paths.get(PropertiesLoader.getInstance().getProperty("outputDirectory") + "/" + title.replaceAll("/", "|") + ".txt"),
 					data.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 		} catch (IOException e) {
 			logger.log(Level.INFO, String.valueOf(e.getStackTrace()));

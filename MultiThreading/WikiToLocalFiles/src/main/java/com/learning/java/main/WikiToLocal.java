@@ -3,7 +3,6 @@ package com.learning.java.main;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.logging.Level;
@@ -23,12 +22,11 @@ import com.learning.java.util.PropertiesLoader;
  */
 public class WikiToLocal {
 
-	private static Properties properties = (new PropertiesLoader()).loadProperties();
-
+	private static PropertiesLoader propertiesLoader=PropertiesLoader.getInstance();
 	public static void main(String[] args) {
 
 		createDirectory();
-		List<File> files = Arrays.asList((new DirectoryReader(properties.getProperty("dirToRead"))).readDirectory());
+		List<File> files = Arrays.asList((new DirectoryReader(propertiesLoader.getProperty("dirToRead"))).readDirectory());
 		startThreads(files);
 
 	}
@@ -37,7 +35,7 @@ public class WikiToLocal {
 	 * Creates a directory.
 	 */
 	private static void createDirectory() {
-		File file = new File(properties.getProperty("outputDirectory"));
+		File file = new File(propertiesLoader.getProperty("outputDirectory"));
 		file.mkdir();
 	}
 
@@ -65,8 +63,8 @@ public class WikiToLocal {
 	}
 
 	private static List<String> getWordsFromFile(File file) {
-		String wordSeparator = properties.getProperty(file.getName().replaceAll(" ", "") + ".separator");
-		int wordPosition = Integer.parseInt(properties.getProperty(file.getName().replaceAll(" ", "") + ".position"));
+		String wordSeparator = propertiesLoader.getProperty(file.getName().replaceAll(" ", "") + ".separator");
+		int wordPosition = Integer.parseInt(propertiesLoader.getProperty(file.getName().replaceAll(" ", "") + ".position"));
 		FileReader fileReader = new FileReader.FileReaderBuilder(file).setWordSeperator(wordSeparator)
 				.setWordPosition(wordPosition).build();
 		return fileReader.read();

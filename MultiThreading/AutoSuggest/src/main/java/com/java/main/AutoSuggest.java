@@ -3,7 +3,6 @@ package com.java.main;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import com.java.datastructure.TrieNode;
 import com.learning.java.util.FileUtil;
@@ -17,15 +16,15 @@ import com.learning.java.util.PropertiesLoader;
  */
 public class AutoSuggest {
 
-	private static Properties properties = (new PropertiesLoader()).loadProperties();
+	private static PropertiesLoader propertiesLoader=PropertiesLoader.getInstance();
 
 	public static void main(String[] args) {
-		FileUtil.createDirectory(properties.getProperty("outputDirectory"));
-		List<File> files = Arrays.asList((FileUtil.readDirectory(properties.getProperty("dirToRead"))));
+		FileUtil.createDirectory(propertiesLoader.getProperty("outputDirectory"));
+		List<File> files = Arrays.asList((FileUtil.readDirectory(propertiesLoader.getProperty("dirToRead"))));
 		List<String> words = FileUtil.readWords(files);
 		TrieNode trie = createTrie(words);
 		List<String> suggestions = findSuggestions(trie, args[0]);
-		FileUtil.writeToOutputFile(suggestions,properties.getProperty("outputDirectory") + "/" + "AutoSuggest.txt");
+		FileUtil.writeToOutputFile(suggestions,propertiesLoader.getProperty("outputDirectory") + "/" + "AutoSuggest.txt");
 	}
 
 	/**
